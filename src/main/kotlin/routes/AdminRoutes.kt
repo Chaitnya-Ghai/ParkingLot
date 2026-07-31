@@ -9,6 +9,6 @@ fun Route.adminRoute(parkingLot: ParkingLot, vehicleCostJson: VehicleCostJson) {
     adminRouteValidations()
     route("/api/v1/admin") {
         levelsRoutes(parkingLot.building)
-        vehicleRoutes(parkingLot, vehicleCostJson)
+        vehicleConfigRoutes(vehicleCostJson)
     }
 }

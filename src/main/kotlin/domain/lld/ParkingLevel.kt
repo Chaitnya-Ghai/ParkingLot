@@ -15,6 +15,7 @@ class ParkingLevel(
     fun toResponse(): LevelResponse =
         LevelResponse(levelNumber = levelNumber, availability = availability())
 
+    fun freeSpotCount(): Int = managers.values.sumOf { it.freeSpotCount() }
     fun hasAvailability(vehicleType: VehicleType): Boolean =
         managers[vehicleType]?.hasFreeSpot() ?: false
 

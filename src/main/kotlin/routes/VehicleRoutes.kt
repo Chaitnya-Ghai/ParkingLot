@@ -3,30 +3,26 @@ package chaitnya.dev.routes
 import chaitnya.dev.dtos.ExitRequest
 import chaitnya.dev.domain.lld.ParkingLot
 import chaitnya.dev.domain.models.Vehicle
-import chaitnya.dev.domain.models.VehicleType
 import chaitnya.dev.domain.payment.Payment
 import chaitnya.dev.domain.payment.strategy.Cash
 import chaitnya.dev.domain.payment.strategy.Upi
-import chaitnya.dev.domain.pricingStrategy.VehicleCostJson
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 
-fun Route.vehicleRoutes(parkingLot: ParkingLot, vehicleCostJson: VehicleCostJson) {
-    route("/vehicles") {
-
-        post("/config") {
-            val req = call.receive<Map<VehicleType, Double>>()
-            req.forEach { (vehicleType, costPerHour) ->
-                vehicleCostJson.add(vehicleType, costPerHour)
-            }
-            call.respond(HttpStatusCode.OK)
+fun Route.userRoute(parkingLot: ParkingLot) {
+    route("/api/v1/vehicles") {
+        get("/availability") {
+            call.respond(parkingLot.building.freeSpotByLevel())
         }
 
-        get("/config") {
-            call.respond(vehicleCostJson.map.toMap())
+        get("/availability/{levelId}") {
+            val levelId = call.parameters["levelId"]?.toIntOrNull()
+                ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid level id")
+            call.respond(parkingLot.building.freeSpotCount(levelId))
         }
+
         post("/entry") {
             val vehicle = call.receive<Vehicle>()
             val ticket = parkingLot.vehicleArrives(vehicle)
@@ -46,6 +42,5 @@ fun Route.vehicleRoutes(parkingLot: ParkingLot, vehicleCostJson: VehicleCostJson
             parkingLot.vehicleExits(ticket, payment)
             call.respond(HttpStatusCode.OK)
         }
-
     }
 }

@@ -26,6 +26,10 @@ abstract class ParkingSpotManager(
         spot.releaseSpot()
     }
 
+    fun freeSpotCount(): Int = lock.withLock {
+        spots.count { it.isSpotFree }
+    }
+
     fun hasFreeSpot(): Boolean = lock.withLock {
         spots.any { it.isSpotFree }
     }

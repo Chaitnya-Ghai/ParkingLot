@@ -21,6 +21,14 @@ class ParkingLotBuilding(
         return parkingLevels.toList()
     }
 
+    //  specific free spots in a level count.
+    fun freeSpotCount(levelId: Int): Int =
+        parkingLevels.first { it.levelNumber == levelId }.freeSpotCount()
+
+    // each level --> free count, level number.
+    fun freeSpotByLevel(): Map<Int, Int> =
+        parkingLevels.associate { it.levelNumber to it.freeSpotCount() }
+
     fun getTicketService(): TicketService {
         return this.ticketService
     }
