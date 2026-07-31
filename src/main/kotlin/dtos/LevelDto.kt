@@ -1,12 +1,12 @@
 package chaitnya.dev.dtos
 
-import chaitnya.dev.parkinglot.lld.ParkingLevel
-import chaitnya.dev.parkinglot.lookUpStrategy.ParkingSpotLookupStrategy
-import chaitnya.dev.parkinglot.manager.FourWheelerSpotManager
-import chaitnya.dev.parkinglot.manager.ParkingSpotManager
-import chaitnya.dev.parkinglot.manager.TwoWheelerSpotManager
-import chaitnya.dev.parkinglot.models.ParkingSpot
-import chaitnya.dev.parkinglot.models.VehicleType
+import chaitnya.dev.domain.lld.ParkingLevel
+import chaitnya.dev.domain.lookUpStrategy.ParkingSpotLookupStrategy
+import chaitnya.dev.domain.manager.FourWheelerSpotManager
+import chaitnya.dev.domain.manager.ParkingSpotManager
+import chaitnya.dev.domain.manager.TwoWheelerSpotManager
+import chaitnya.dev.domain.models.ParkingSpot
+import chaitnya.dev.domain.models.VehicleType
 import kotlinx.serialization.Serializable
 import kotlin.uuid.Uuid
 

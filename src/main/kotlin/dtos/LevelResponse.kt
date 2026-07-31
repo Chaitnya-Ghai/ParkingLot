@@ -1,6 +1,6 @@
 package chaitnya.dev.dtos
 
-import chaitnya.dev.parkinglot.models.VehicleType
+import chaitnya.dev.domain.models.VehicleType
 import kotlinx.serialization.Serializable
 
 @Serializable

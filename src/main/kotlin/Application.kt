@@ -1,13 +1,15 @@
 package chaitnya.dev
 
-import chaitnya.dev.parkinglot.lld.EntryGate
-import chaitnya.dev.parkinglot.lld.ExitGate
-import chaitnya.dev.parkinglot.lld.ParkingLot
-import chaitnya.dev.parkinglot.lld.ParkingLotBuilding
-import chaitnya.dev.parkinglot.pricingStrategy.CostComputation
-import chaitnya.dev.parkinglot.pricingStrategy.FixedHours
-import chaitnya.dev.parkinglot.pricingStrategy.VehicleCostJson
-import chaitnya.dev.parkinglot.ticketGenerator.TicketService
+import chaitnya.dev.domain.lld.EntryGate
+import chaitnya.dev.domain.lld.ExitGate
+import chaitnya.dev.domain.lld.ParkingLot
+import chaitnya.dev.domain.lld.ParkingLotBuilding
+import chaitnya.dev.domain.pricingStrategy.CostComputation
+import chaitnya.dev.domain.pricingStrategy.FixedHours
+import chaitnya.dev.domain.pricingStrategy.VehicleCostJson
+import chaitnya.dev.domain.ticketGenerator.TicketService
+import chaitnya.dev.plugins.configAppRouting
+import chaitnya.dev.plugins.configureSerialization
 import chaitnya.dev.plugins.configureStatusPages
 import io.ktor.server.application.*
 

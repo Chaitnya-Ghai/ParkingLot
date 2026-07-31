@@ -1,7 +1,7 @@
 package chaitnya.dev.plugins
 
 import chaitnya.dev.dtos.LevelDto
-import chaitnya.dev.parkinglot.models.VehicleType
+import chaitnya.dev.domain.models.VehicleType
 import io.ktor.server.plugins.requestvalidation.RequestValidation
 import io.ktor.server.plugins.requestvalidation.ValidationResult
 import io.ktor.server.routing.Route
