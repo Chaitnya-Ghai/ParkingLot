@@ -25,6 +25,8 @@ dependencies {
     implementation(libs.h2database.h2)
     implementation(libs.h2database.r2dbc)
     implementation(libs.logback.classic)
+    implementation(libs.ktor.server.request.validation)
+    implementation(libs.ktor.server.status.pages)
     implementation(libs.postgresql)
 
     testImplementation(kotlin("test"))

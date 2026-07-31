@@ -5,7 +5,7 @@ import chaitnya.dev.parkinglot.pricingStrategy.CostComputation
 import chaitnya.dev.payment.Payment
 
 
-class ExitGate(val costComputation: CostComputation){
+class ExitGate(private var costComputation: CostComputation){
 
     fun completeExit(
         building: ParkingLotBuilding,
@@ -25,6 +25,14 @@ class ExitGate(val costComputation: CostComputation){
 
     private fun calculatePrice(ticket: Ticket): Double {
         return costComputation.compute(ticket)
+    }
+
+    fun setCurrentStrategy(costComputation: CostComputation) {
+        this.costComputation = costComputation
+
+    }
+    fun getCurrentStrategy(): CostComputation {
+        return this.costComputation
     }
 
 }

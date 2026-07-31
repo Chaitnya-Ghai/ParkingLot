@@ -8,6 +8,23 @@ class ParkingLotBuilding(
     private val parkingLevels: MutableList<ParkingLevel>,
     private val ticketService: TicketService
 ) {
+    fun addLevel(level: ParkingLevel) {
+        parkingLevels.add(level)
+    }
+    fun removeLevel(levelNumber: Int) {
+        val removed = parkingLevels.removeIf { it.levelNumber == levelNumber }
+        if (!removed) {
+            throw NoSuchElementException("Level $levelNumber not found.")
+        }
+    }
+    fun getList(): List<ParkingLevel> {
+        return parkingLevels.toList()
+    }
+
+    fun getTicketService(): TicketService {
+        return this.ticketService
+    }
+
     fun allocate(vehicle: Vehicle): Ticket {
         for (level in parkingLevels) {
             if (level.hasAvailability(vehicle.vehicleType)) {

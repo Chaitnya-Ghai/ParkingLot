@@ -1,13 +1,19 @@
 package chaitnya.dev.parkinglot.lld
 
+import chaitnya.dev.dtos.LevelResponse
 import chaitnya.dev.parkinglot.manager.ParkingSpotManager
 import chaitnya.dev.parkinglot.models.ParkingSpot
 import chaitnya.dev.parkinglot.models.VehicleType
 
 class ParkingLevel(
     val levelNumber: Int,
-    private val managers: Map<VehicleType, ParkingSpotManager>
+    private val managers: MutableMap<VehicleType, ParkingSpotManager>
 ) {
+    private fun availability(): Map<VehicleType, Int> =
+        managers.mapValues { (_, manager) -> manager.totalSpotCount() }
+
+    fun toResponse(): LevelResponse =
+        LevelResponse(levelNumber = levelNumber, availability = availability())
 
     fun hasAvailability(vehicleType: VehicleType): Boolean =
         managers[vehicleType]?.hasFreeSpot() ?: false

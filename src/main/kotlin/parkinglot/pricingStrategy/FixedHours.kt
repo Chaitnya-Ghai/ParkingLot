@@ -7,17 +7,26 @@ import kotlin.time.Clock
 class FixedHours(val vehicleCostJson: VehicleCostJson) : PricingStrategy {
     override fun calculate(ticket: Ticket): Double {
         val totalTime = Clock.System.now() - ticket.entryTime
-        val totalCost =totalTime.inWholeHours * vehicleCostJson.perHour(ticket.vehicle.vehicleType) * (18 / 100)
-        return totalCost
+        val cost = totalTime.inWholeHours * vehicleCostJson.perHour(ticket.vehicle.vehicleType)
+        val gst = cost * 0.18
+        return cost+gst
     }
 }
 
-object VehicleCostJson {
-    val map = HashMap<String, Double>()
-    fun add(vehicleType: String, costPerHour: Double) {
+class FixedDay(val vehicleCostJson: VehicleCostJson) : PricingStrategy {
+    override fun calculate(ticket: Ticket): Double {
+        val cost = vehicleCostJson.map[ticket.vehicle.vehicleType]
+        val gst: Double? = cost?.times(0.18)
+        return gst?.let { cost.plus(it) } ?: throw NoSuchElementException()
+    }
+}
+
+class VehicleCostJson {
+    val map = HashMap<VehicleType, Double>()
+    fun add(vehicleType: VehicleType, costPerHour: Double) {
         map[vehicleType] = costPerHour
     }
     fun perHour(vehicleType: VehicleType): Double {
-        return map[vehicleType.toString()] ?: 20.0
+        return map.getValue(vehicleType)
     }
 }
